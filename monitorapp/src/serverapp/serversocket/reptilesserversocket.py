@@ -1,11 +1,13 @@
+import sys
 import socket
 
-SERVER_IP_ADDR = '192.168.0.10'
-SERVER_PORT = 50000
+sys.path.append('../')
+
+import common
 
 BUF_SIZE = 2048
 
-class ReptilesServerSocket:
+class ReptilesServerSocket():
 
     def __init__(self, sock=None):
         if sock is None:
@@ -17,7 +19,7 @@ class ReptilesServerSocket:
         self.sock.setsocket(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def bind(self):
-        self.sock.bind(SERVER_IP_ADDR, SERVER_PORT)
+        self.sock.bind(common.define.SERVER_IP_ADDR, common.define.SERVER_PORT)
 
     def listen(self, num=1):
         self.sock.listen(num)

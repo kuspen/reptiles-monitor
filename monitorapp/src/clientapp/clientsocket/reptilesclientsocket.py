@@ -1,18 +1,18 @@
+import sys
 import socket
 
-SERVER_IP_ADDR = "192.168.0.10"
-SERVER_PORT = 50000
+import common.define
 
-class ReptilesClientSocket:
+class ReptilesClientSocket():
 
     def __init__(self, sock=None):
         if sock is None:
-            self.sock = socket.socket(socket.AF_INET, socket,SOCK_STREAM)
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         else:
             self.sock = sock
 
     def connect(self):
-        self.sock.connect(SERVER_IP_ADDR , SERVER_PORT)
+        self.sock.connect((common.define.SERVER_IP_ADDR, common.define.SERVER_PORT))
 
     def send(self, msg):
         totalsent = 0

@@ -1,7 +1,7 @@
 import picamera
 from time import sleep
 
-class Camera:
+class ReptilesCamera():
     def __init__(self):
         self.camera = picamera.PiCamera()
         __camera_setting(self.camera)
