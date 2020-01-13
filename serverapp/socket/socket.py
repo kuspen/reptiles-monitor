@@ -1,11 +1,11 @@
 import socket
 
-CLIENT_IP_ADDR = '192.168.0.10'
-CLIENT_PORT = 50000
+SERVER_IP_ADDR = '192.168.0.10'
+SERVER_PORT = 50000
 
 BUF_SIZE = 2048
 
-class ReptilesSocket:
+class ReptilesServerSocket:
 
     def __init__(self, sock=None):
         if sock is None:
@@ -13,8 +13,14 @@ class ReptilesSocket:
         else:
             self.sock = sock
 
-    def connect(self, host, port):
-        self.sock.connect(host, port)
+    def setsocket(self):
+        self.sock.setsocket(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    def bind(self):
+        self.sock.bind(SERVER_IP_ADDR, SERVER_PORT)
+
+    def listen(self, num=1):
+        self.sock.listen(num)
 
     def send(self, msg):
         totalsent = 0

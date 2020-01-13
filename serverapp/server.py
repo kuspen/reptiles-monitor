@@ -7,7 +7,7 @@ __HEADER_GET_IMG_DATA = 0x1000
 class ReptilesServer:
 
     def __init__(self):
-        self.socket = ReptilesSocket()
+        self.socket = ReptilesServerSocket()
 
     def connect(self):
         self.socket.connect()
