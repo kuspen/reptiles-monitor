@@ -12,30 +12,31 @@ class ReptilesServer():
     def __init__(self):
 
         # socket
-        self.socket = ReptilesServerSocket()
+        self.socket = serversocket.reptilesserversocket.ReptilesServerSocket()
         self.socket.setsocket()
         self.socket.bind()
         self.socket.listen()
 
         # camera
-        self.camera = Camera()
+        self.camera = devices.camera.reptilescamera.ReptilesCamera()
 
     def loop(self):
 
+        self.socket.accept()
+
         while True:
-            header = __recv_header()
-            length = __recv_length()
-            data = __recv_data(length)
+            header = self.__recv_header()
+            length = self.__recv_length()
+            data = self.__recv_data(length)
             
             if header == common.define.HEADER_GET_IMG_DATA:
 
-                __send_header(common.define.HEADER_ACK)
-                __send_length()
+                self.__send_header(common.define.HEADER_ACK)
+                self.__send_length()
 
 
     def __get_img_data(self, data):
         camera.capture()
-
 
     def __send_header(self, header):
         send_data = header.to_bytes(2, 'little')

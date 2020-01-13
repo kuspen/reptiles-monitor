@@ -1,6 +1,8 @@
 import sys
 import socket
 
+sys.path.append('../')
+
 import common.define
 
 class ReptilesClientSocket():

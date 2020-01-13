@@ -1,6 +1,8 @@
 import sys
 import socket
-import clientapp.clientsocket.reptilesclientsocket
+import clientsocket.reptilesclientsocket
+
+sys.path.append('../')
 
 import common
 
@@ -12,16 +14,16 @@ class ReptilesClient():
     def __init__(self):
         
         #socket
-        self.socket = clientapp.clientsocket.reptilesclientsocket.ReptilesClientSocket()
+        self.socket = clientsocket.reptilesclientsocket.ReptilesClientSocket()
         self.socket.connect()
         
     def get_img_data():
-        __send_header(common.define.HEADER_GET_IMG_DATA)
-        __send_length(0)
+        self.__send_header(common.define.HEADER_GET_IMG_DATA)
+        self.__send_length(0)
 
-        header = __recv_header()
-        length = __recv_length()
-        data = __recv_data(length)
+        header = self.__recv_header()
+        length = self.__recv_length()
+        data = self.__recv_data(length)
 
     def __send_header(self, header):
         send_data = header.to_bytes(2, 'little')

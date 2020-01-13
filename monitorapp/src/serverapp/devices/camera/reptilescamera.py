@@ -4,7 +4,7 @@ from time import sleep
 class ReptilesCamera():
     def __init__(self):
         self.camera = picamera.PiCamera()
-        __camera_setting(self.camera)
+        self.__camera_setting()
 
     def capture():
         self.camera.capture('image.jpg')
