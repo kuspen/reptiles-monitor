@@ -1,9 +1,9 @@
-import sys
+import sys, time
 import socket
 
-sys.path.append('../')
+import monitorapp.src.common.define as define
 
-import common.define
+import monitorapp
 
 class ReptilesClientSocket():
 
@@ -14,7 +14,7 @@ class ReptilesClientSocket():
             self.sock = sock
 
     def connect(self):
-        self.sock.connect((common.define.SERVER_IP_ADDR, common.define.SERVER_PORT))
+        self.sock.connect((define.SERVER_IP_ADDR, define.SERVER_PORT))
 
     def send(self, msg):
         totalsent = 0
@@ -35,4 +35,5 @@ class ReptilesClientSocket():
             chunks.append(chunk)
             bytes_recd = bytes_recd + len(chunk)
         return b''.join(chunks)
+
 
