@@ -29,16 +29,10 @@ class ReptilesServer():
             length = self.__recv_length()
             data = self.__recv_data(length)
 
-            print('header=', header)
-            print('length=', length)
-            print('data=', data)
-            
             if header == common.define.HEADER_GET_IMG_DATA:
-                print('HEADER_GET_IMG_DATA')
                 self.__get_img_data()
                 self.__send_header(common.define.HEADER_ACK)
                 self.__send_length(0)
-                print('SEND_ACK_CMD')
 
 
     def __get_img_data(self):

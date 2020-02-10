@@ -17,7 +17,7 @@ class ReptilesClient():
         self.socket = clientsocket.reptilesclientsocket.ReptilesClientSocket()
         self.socket.connect()
         
-    def get_img_data():
+    def get_img_data(self):
         self.__send_header(common.define.HEADER_GET_IMG_DATA)
         self.__send_length(0)
 
@@ -30,7 +30,7 @@ class ReptilesClient():
         self.socket.send(send_data)
 
     def __send_length(self, length):
-        send_data = header.to_bytes(4, 'little')
+        send_data = length.to_bytes(4, 'little')
         self.socket.send(send_data)
 
     def __recv_header(self):
