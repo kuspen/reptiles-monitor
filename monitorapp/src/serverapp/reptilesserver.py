@@ -1,3 +1,4 @@
+import os
 import sys
 import serversocket.reptilesserversocket
 import devices.camera.reptilescamera
@@ -36,9 +37,21 @@ class ReptilesServer():
             if header == common.define.HEADER_GET_IMG_DATA:
                 print('HEADER_GET_IMG_DATA')
                 self.__get_img_data()
+
                 self.__send_header(common.define.HEADER_ACK)
-                self.__send_length(0)
-                print('SEND_ACK_CMD')
+                img_size = os.path.getsize('./images/image.jpg')
+                self.__send_length(img_size)
+                print(img_size)
+
+                with open('./images/image.jpg', mode='rb') as f:
+                    while img_size >= 0:
+                        if img_size >= common.define.FILE_BUF_SIZE:
+                            datas = f.read(common.define.FILE_BUF_SIZE)
+                            self.__send_data(datas, False)
+                        else:
+                            datas = f.read(img_size)
+                            self.__send_data(datas, False)
+                        img_size -= common.define.FILE_BUF_SIZE
 
 
     def __get_img_data(self):
@@ -52,6 +65,13 @@ class ReptilesServer():
         send_data = length.to_bytes(4, 'little')
         self.socket.send(send_data)
 
+    def __send_data(self, data, to_byte=True):
+        if to_byte:
+            send_data = data.to_bytes(length, 'little')
+            self.socket.send(send_data)
+        else:
+            self.socket.send(data)
+
     def __recv_header(self):
         header = self.socket.receive(2)
         return int.from_bytes(header, 'little')
@@ -60,7 +80,9 @@ class ReptilesServer():
         length = self.socket.receive(4)
         return int.from_bytes(length, 'little')
 
-    def __recv_data(self, length):
+    def __recv_data(self, length, from_byte=True):
         data = self.socket.receive(length)
-        return int.from_bytes(data, 'little')
-
+        if from_byte:
+            return int.from_bytes(data, 'little')
+        else:
+            return data
