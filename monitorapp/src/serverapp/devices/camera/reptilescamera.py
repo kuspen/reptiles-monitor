@@ -7,7 +7,7 @@ class ReptilesCamera():
         self.__camera_setting()
 
     def capture(self):
-        self.camera.capture('image.jpg')
+        self.camera.capture('./images/image.jpg')
 
     def recoding(self):
         self.camera.start_recording('video.h264')
