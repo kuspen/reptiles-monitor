@@ -6,10 +6,10 @@ class ReptilesCamera():
         self.camera = picamera.PiCamera()
         self.__camera_setting()
 
-    def capture():
+    def capture(self):
         self.camera.capture('image.jpg')
 
-    def recoding():
+    def recoding(self):
         self.camera.start_recording('video.h264')
         sleep(5)
         self.camera.stop_recording()
