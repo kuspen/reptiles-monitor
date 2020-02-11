@@ -1,4 +1,6 @@
 import os, sys, time
+from datetime import datetime
+
 import socket
 #import clientsocket.reptilesclientsocket
 import monitorapp.src.clientapp.clientsocket.reptilesclientsocket
@@ -26,7 +28,11 @@ class ReptilesClient():
         recv_header = self.__recv_header()
         recv_length = self.__recv_length()
 
-        with open('./monitorapp/src/clientapp/images/image.jpg', mode='wb') as f:
+        path = './controlapp/static/cap_images/'
+        nowtime = datetime.now().strftime('%Y%m%d%H%M%S')
+        image_name = 'image_' + nowtime + ".jpg"
+
+        with open(path + image_name, mode='wb') as f:
             while recv_length >= 0:
                 if recv_length >= define.FILE_BUF_SIZE:
                     datas = self.__recv_data(define.FILE_BUF_SIZE, False)
@@ -36,6 +42,7 @@ class ReptilesClient():
                     f.write(datas)
                 recv_length -= define.FILE_BUF_SIZE
 
+        return image_name
 
     def __send_header(self, header):
         send_data = header.to_bytes(2, 'little')

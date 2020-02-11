@@ -9,5 +9,8 @@
         <form action="/" method="post">
             <button type="submit" name="action" value="capture">capture</button>
         </form>
+        {% if cap_img %}
+            <img src={{cap_img}} alt="cap_img">
+        {% endif %}
     </body>
 </html>
